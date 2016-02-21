@@ -135,7 +135,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !PlayerController.shooting && !PlayerController.OverHeat)
             {
                 m_IsWalking = true;
                 isRunning = false;

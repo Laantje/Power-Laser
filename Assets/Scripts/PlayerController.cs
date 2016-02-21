@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public GameObject gun;
+    public CharacterController player;
     public static bool shooting;
     public static bool ADS;
     public static bool switchADS;
@@ -17,7 +18,8 @@ public class PlayerController : MonoBehaviour
     public Text CoverPopUp;
     public float crouchingSpeed;
     public float CspeedUp;
-    public float GunHeat;
+    public float crouchHeight;
+    public static float GunHeat;
     public float TimerCover;
     public float hSliderValue = 0;
 
@@ -83,33 +85,44 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Pressed left click.");
                 gun.GetComponent<Animator>().Play("GunADS_Shoot");
             }
-            GunHeat += Time.deltaTime * 20;
         }
 
         //Crouching
         if (Input.GetKey("x"))
         {
+            crouchHeight -= 0.1f * (Time.deltaTime * 10);
             CspeedUp -= crouchingSpeed * (Time.deltaTime * 10);
-            if (CspeedUp < -0.6f)
+            if (crouchHeight < -0.6f)
             {
-                CspeedUp = -0.6f;
+                crouchHeight = -0.6f;
+            }
+            if (CspeedUp < -0.3f)
+            {
+                CspeedUp = -0.3f;
             }
         }
 
         //Cover
-        else if (CanCover == true && Input.GetKey("z"))
+        else if (CanCover && Input.GetKey("z"))
         {
             CspeedUp = -0.6f;
         }
         else
         {
+            crouchHeight += 0.1f * (Time.deltaTime * 10);
             CspeedUp += crouchingSpeed * (Time.deltaTime * 10);
-            if (CspeedUp > 0.0f)
+            if (crouchHeight > -0.1f)
+            {
+                crouchHeight = 0.0f;
+            }
+            if (CspeedUp > -0.2f)
             {
                 CspeedUp = 0.0f;
             }
         }
         transform.localPosition = new Vector3(0, CspeedUp, 0);
+        Debug.Log(player.height);
+        player.height = crouchHeight + 1.8f;
         GunHeat -= Time.deltaTime / 2;
         TimerCover += Time.deltaTime;
 

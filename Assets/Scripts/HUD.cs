@@ -24,7 +24,7 @@ public class HUD : MonoBehaviour
     public static bool crosshairTrigger = true;
     public bool scaleToADS = false;
     public bool scaleFromADS = false;
-    public bool playerHit = false;
+    public static bool playerHit = false;
     public bool plusTrigger = false;
     public bool minusTrigger = false;
     public static bool enemyHit = false;
@@ -36,7 +36,7 @@ public class HUD : MonoBehaviour
         crossPos = new Rect((Screen.width - crosshairSprite.width / 2) / 2, (Screen.height - crosshairSprite.height / 2) / 2, crosshairSprite.width / 2, crosshairSprite.height / 2);
         scorePos = new Rect((Screen.width - 200) / 24 * 23, (Screen.height - 100) / 12, 200, 100);
         plusPos = new Rect(scorePos.x + 90, scorePos.y - 3, plus80.width * 1.3f, plus80.height * 1.3f);
-        minusPos = new Rect(scorePos.x + 90, scorePos.y + 3, plus80.width * 1.3f, plus80.height * 1.3f);
+        minusPos = new Rect(scorePos.x + 90, scorePos.y + 6, plus80.width * 1.3f, plus80.height * 1.3f);
     }
 
     void OnGUI()
@@ -73,7 +73,7 @@ public class HUD : MonoBehaviour
         }
         else if (playerHit)
         {
-            minusPos = new Rect(scorePos.x + 90, scorePos.y + 3, plus80.width * 1.3f, plus80.height * 1.3f);
+            minusPos = new Rect(scorePos.x + 130, scorePos.y + 50, plus80.width * 1.3f, plus80.height * 1.3f);
             minusDelay = 0;
             minusStay = 0;
             minusTrigger = true;

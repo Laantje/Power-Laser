@@ -60,7 +60,7 @@ public class LaserGun : MonoBehaviour
     {
         line.enabled = true;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !PlayerController.shooting)
         {
             line.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0, Time.time);
 
@@ -89,7 +89,8 @@ public class LaserGun : MonoBehaviour
                 line.SetPosition(1, ray.GetPoint(100));
             }
             laserShot = true;
-         yield return null;
+            PlayerController.GunHeat += Time.deltaTime * 20;
+            yield return null;
         }
 
     PlayerController.shooting = true;

@@ -6,13 +6,14 @@ public class TargetScript : MonoBehaviour {
     public bool isAlive;
     public Transform target;
     public GameObject player;
+
     Vector3 distance;
 
 	// Use this for initialization
 	void Start () {
         hp = 3;
         isAlive = true;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -21,7 +22,7 @@ public class TargetScript : MonoBehaviour {
             isAlive = false;
         }
 
-        if(isAlive)
+        if(isAlive && EnemyLaser.seePlayer)
         {
             transform.LookAt(target);
         }
